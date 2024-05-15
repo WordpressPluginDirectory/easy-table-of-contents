@@ -556,6 +556,8 @@ class ezTOC_Post {
 	private function removeHeadingsFromExcludedNodes( &$matches ) {
 
 		foreach ( $matches as $i => $match ) {
+			
+			$match[3] = apply_filters( 'ez_toc_filter_headings_from_exclude_nodes', $match[3]);
 
 			if ( $this->inExcludedNode( "{$match[3]}</h$match[2]>" ) ) {
 
@@ -1243,7 +1245,7 @@ class ezTOC_Post {
 	 * @return string
 	 */
 	public function getTOCList($prefix = "ez-toc", $options = []) {
-
+		
 		$html = '';
 
 		$toc_more = isset($options['view_more']) ? array( 'view_more' => $options['view_more'] )  : array();
@@ -1275,6 +1277,8 @@ class ezTOC_Post {
 			if(is_array($options) && key_exists( 'visibility_hide_by_default', $options ) && $options['visibility_hide_by_default'] == true && 'js' == ezTOC_Option::get( 'toc_loading' ) && ezTOC_Option::get( 'visibility' )){
 				$visiblityClass = "eztoc-toggle-hide-by-default";
 			}elseif(is_array($options) && key_exists( 'visibility_show_by_default', $options ) && $options['visibility_show_by_default'] == true && 'js' == ezTOC_Option::get( 'toc_loading' ) && ezTOC_Option::get( 'visibility' )){
+				$visiblityClass = "";
+			}elseif(is_array($options) && key_exists( 'visibility_hide_by_default', $options ) && $options['visibility_hide_by_default'] == false){
 				$visiblityClass = "";
 			}
 			$html  = apply_filters('ez_toc_add_custom_links',$html);
@@ -1488,7 +1492,7 @@ class ezTOC_Post {
 			
 		}
 
-		return $html;
+		return apply_filters('eztoc_autoinsert_final_toc_html',$html);
 	}
 
 	private function get_js_based_toc_heading($options){
@@ -1624,6 +1628,9 @@ class ezTOC_Post {
 			if( $options !== null && !empty( $options ) && is_array( $options ) && key_exists( 'visibility_hide_by_default', $options ) && true == $options['visibility_hide_by_default'] ) {
 					$toggle_view= "checked";
 			}
+			if( $options !== null && !empty( $options ) && is_array( $options ) && key_exists( 'visibility_hide_by_default', $options ) && false == $options['visibility_hide_by_default'] ) {
+				$toggle_view= '';
+		    }
 			$toc_icon = ezTOC::getTOCToggleIcon();
 		    $label_below_html = '';
 		    $read_time = array();
