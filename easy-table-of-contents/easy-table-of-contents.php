@@ -3,7 +3,7 @@
  * Plugin Name: Easy Table of Contents
  * Plugin URI: https://tocwp.com/
  * Description: Adds a user friendly and fully automatic way to create and display a table of contents generated from the page content.
- * Version: 2.0.82
+ * Version: 2.0.82.1
  * Author: Magazine3
  * Author URI: https://tocwp.com/
  * Text Domain: easy-table-of-contents
@@ -28,7 +28,7 @@
  * @package  Easy Table of Contents
  * @category Plugin
  * @author   Magazine3
- * @version  2.0.82
+ * @version  2.0.82.1
  */
 
 use Eztoc\Table_Of_Contents\Debug;
@@ -52,7 +52,7 @@ if ( ! class_exists( 'ezTOC' ) ) {
 		 * @since 1.0
 		 * @var string
 		 */
-		const VERSION = '2.0.82';
+		const VERSION = '2.0.82.1';
 
 		/**
 		 * Stores the instance of this class.
@@ -780,7 +780,7 @@ if ( ! class_exists( 'ezTOC' ) ) {
          */
 		public static function enqueue_registered_sticky_script(){
 
-			wp_enqueue_script( 'ez-toc-sticky');
+			wp_enqueue_script( 'eztoc-sticky');
 
 		}
                         
@@ -930,7 +930,7 @@ if ( ! class_exists( 'ezTOC' ) ) {
 				if ( ! ezTOC_Option::get( 'inline_css' ) ) {
 					$css = '';
 					$css = self::inline_counting_css( ezTOC_Option::get( 'heading-text-direction', 'ltr' ), 'ez-toc-sticky-toggle-direction', 'ez-toc-sticky-toggle-counter', 'counter', 'ez-toc-sticky-container' ); 
-					wp_add_inline_style( 'ez-toc-sticky', $css );
+					wp_add_inline_style( 'eztoc-sticky', $css );
 				}
 			}            	                                               
 
@@ -950,7 +950,7 @@ if ( ! class_exists( 'ezTOC' ) ) {
 					$css = '';
 					$css .= self::inline_counting_css( ezTOC_Option::get( 'heading-text-direction', 'ltr' ) );
 					$css .= self::inline_counting_css( ezTOC_Option::get( 'heading-text-direction', 'ltr' ),'ez-toc-widget-direction','ez-toc-widget-container', 'counter', 'ez-toc-widget-container' );            		
-					wp_add_inline_style( 'ez-toc', $css );
+					wp_add_inline_style( 'eztoc', $css );
 				}
 			}
                         
